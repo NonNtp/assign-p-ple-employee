@@ -37,7 +37,8 @@ public class Position {
     @Column(name = "max_salary")
     private BigDecimal maxSalary ;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_department_id" , nullable = false)
     private Department department ;
 
 }

@@ -26,8 +26,7 @@ public class Department {
     @Column(name = "department_desc")
     private String departmentDescription ;
 
-    @OneToMany(mappedBy = "department")
-    @Builder.Default
+    @OneToMany(mappedBy = "department" , cascade = CascadeType.ALL , orphanRemoval = true)
     private Set<Position> positions = new HashSet<>() ;
 
 }

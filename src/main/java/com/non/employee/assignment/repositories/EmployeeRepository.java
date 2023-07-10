@@ -2,7 +2,18 @@ package com.non.employee.assignment.repositories;
 
 import com.non.employee.assignment.entities.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee,Long> {
+    Optional<Employee> findByImageName(String filename) ;
+
+    Optional<Employee> findByEmployeeCode(String employeeCode) ;
+
+    Optional<Employee> findByFirstName(String firstName) ;
+
+    boolean existsByFirstNameAndLastName(String firstName, String lastName);
+
+    List<Employee> findAllByEmployeeNameIsLikeIgnoreCase(String employeeName) ;
 }

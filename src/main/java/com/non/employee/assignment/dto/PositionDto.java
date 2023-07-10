@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 @Builder
 public class PositionDto {
 
+    private Long positionId ;
+
     @NotEmpty(message = "position can not empty")
     private String positionName ;
 
