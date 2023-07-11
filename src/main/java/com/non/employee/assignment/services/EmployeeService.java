@@ -15,6 +15,8 @@ public interface EmployeeService {
 
     EmployeeDto uploadImage(String employeeCode , MultipartFile file) ;
 
+    Optional<EmployeeDto> getEmployeeByEmployeeCode(String employeeCode) ;
+
     byte[] downloadImage(String fileName) ;
 
     Optional<EmployeeDto> updateEmployeeByEmployeeCode(String employeeCode, EmployeeDto requestDto);

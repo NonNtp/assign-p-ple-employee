@@ -70,6 +70,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Optional<EmployeeDto> getEmployeeByEmployeeCode(String employeeCode) {
+        return Optional.ofNullable(employeeMapper.employeeDto(employeeRepository.findByEmployeeCode(employeeCode).orElseThrow())) ;
+    }
+
+
+    @Override
     public byte[] downloadImage(String fileName) {
         Optional<Employee> dbImageData = employeeRepository.findByImageName(fileName);
         byte[] images=ImageUtil.decompressImage(dbImageData.get().getImage());

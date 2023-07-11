@@ -1,5 +1,6 @@
 package com.non.employee.assignment.controllers;
 
+import com.non.employee.assignment.dto.DepartmentDto;
 import com.non.employee.assignment.dto.EmployeeDto;
 import com.non.employee.assignment.exceptions.NotFoundException;
 import com.non.employee.assignment.services.EmployeeService;
@@ -8,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class EmployeeController {
 
     private final EmployeeService employeeService ;
@@ -35,6 +36,11 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeService.getAllEmployees(employeeName),HttpStatus.OK) ;
     }
 
+    @GetMapping(EMPLOYEE_PATH_ID)
+    public ResponseEntity<EmployeeDto> getDepartmentById(@PathVariable(value = "employeeCode") String employeeCode) {
+        return new ResponseEntity<>(employeeService.getEmployeeByEmployeeCode(employeeCode).orElseThrow() , HttpStatus.OK) ;
+    }
+
     @PostMapping(EMPLOYEE_PATH_IMAGE_ID)
     public ResponseEntity<EmployeeDto> uploadProfileImage(@PathVariable(value = "employeeCode") String employeeCode, @RequestParam("file") MultipartFile file) {
         return new ResponseEntity<>(employeeService.uploadImage(employeeCode,file) , HttpStatus.OK) ;
@@ -51,7 +57,7 @@ public class EmployeeController {
 
     @PutMapping(EMPLOYEE_PATH_ID)
     public ResponseEntity updateEmployeeByEmployeeCode(@PathVariable("employeeCode") String employeeCode,
-                                                       @Validated @RequestBody EmployeeDto employeeDto) {
+                                                       @Valid @RequestBody EmployeeDto employeeDto) {
         if (employeeService.updateEmployeeByEmployeeCode(employeeCode, employeeDto).isEmpty()) {
             throw new NotFoundException();
         }
