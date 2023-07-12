@@ -33,6 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if(employeeRepository.existsByFirstNameAndLastName(firstName,lastName)) {
             throw new RuntimeException("Firstname and Lastname must be unique") ;
         }
+
         return employeeMapper.employeeDto(employeeRepository.save(employeeMapper.employee(requestDto))) ;
     }
 

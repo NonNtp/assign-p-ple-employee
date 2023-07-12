@@ -15,4 +15,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     List<Employee> findAllByEmployeeNameIsLikeIgnoreCase(String employeeName) ;
 
+    boolean existsByUserLogin(String userLogin) ;
+
+    boolean existsByEmail(String email) ;
+
 }
