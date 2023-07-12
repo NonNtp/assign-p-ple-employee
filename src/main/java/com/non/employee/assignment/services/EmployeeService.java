@@ -21,4 +21,6 @@ public interface EmployeeService {
 
     Optional<EmployeeDto> updateEmployeeByEmployeeCode(String employeeCode, EmployeeDto requestDto);
 
+    Boolean deleteEmployeeById(Long employeeId);
+
 }

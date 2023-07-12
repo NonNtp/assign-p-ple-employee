@@ -32,4 +32,9 @@ public class PositionController {
         return new ResponseEntity<>(positionService.getAllPositions(),HttpStatus.OK) ;
     }
 
+    @GetMapping(POSITION_PATH_ID)
+    public ResponseEntity<List<PositionDto>> getPositionByDepartmentId(@PathVariable(value = "departmentId") Long departmentId) {
+        return new ResponseEntity<>(positionService.getPositionByDepartmentId(departmentId),HttpStatus.OK) ;
+    }
+
 }

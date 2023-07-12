@@ -89,12 +89,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.findByEmployeeCode(employeeCode).ifPresentOrElse(foundEmployee -> {
             foundEmployee.setFirstName(requestDto.getFirstName());
             foundEmployee.setLastName(requestDto.getLastName());
-            foundEmployee.setContactNumber(requestDto.getContactNumber());
+
+            foundEmployee.setEmployeeName(requestDto.getFirstName().substring(0, 1).toUpperCase() +
+                    requestDto.getFirstName().substring(1).toLowerCase() + " " +
+                    requestDto.getLastName().substring(0, 1).toUpperCase() +
+                    requestDto.getLastName().substring(1).toLowerCase());
             foundEmployee.setCompany(requestDto.getCompany());
+
+            String[] companyEmailArr = requestDto.getCompany().split(" ") ;
+            String companyEmail = companyEmailArr[0].toLowerCase() ;
+
+            foundEmployee.setEmail(requestDto.getFirstName().toLowerCase() + "." + requestDto.getLastName().toLowerCase().charAt(0) + "@" + companyEmail + ".co.th");
+            foundEmployee.setUserLogin(requestDto.getFirstName().toLowerCase() + "." + requestDto.getLastName().toLowerCase().charAt(0));
+
+            foundEmployee.setContactNumber(requestDto.getContactNumber());
             foundEmployee.setSalary(requestDto.getSalary());
             foundEmployee.setDepartment(requestDto.getDepartment());
             foundEmployee.setPosition(requestDto.getPosition());
-            foundEmployee.setHiredDate(requestDto.getHiredDate());
             foundEmployee.setResignedDate(requestDto.getResignedDate());
             foundEmployee.setStatus(requestDto.getStatus());
 
@@ -104,6 +115,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         });
 
         return atomicReference.get();
+    }
+
+    @Override
+    public Boolean deleteEmployeeById(Long employeeId) {
+        if (employeeRepository.existsById(employeeId)) {
+            employeeRepository.deleteById(employeeId);
+            return true;
+        }
+        return false;
     }
 
 

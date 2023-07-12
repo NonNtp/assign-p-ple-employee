@@ -11,5 +11,5 @@ public interface PositionService {
 
     List<PositionDto> getAllPositions();
 
-    Optional<PositionDto> getPositionByDepartmentId(Long departmentId) ;
+    List<PositionDto> getPositionByDepartmentId(Long departmentId) ;
 }

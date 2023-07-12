@@ -43,8 +43,10 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public Optional<PositionDto> getPositionByDepartmentId(Long departmentId) {
-        return Optional.empty();
+    public List<PositionDto> getPositionByDepartmentId(Long departmentId) {
+        List<Position> positions = positionRepository.findByDepartmentDepartmentId(departmentId) ;
+
+        return positions.stream().map(positionMapper :: positionDto).collect(Collectors.toList());
     }
 
 

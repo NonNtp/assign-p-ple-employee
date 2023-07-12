@@ -1,6 +1,5 @@
 package com.non.employee.assignment.controllers;
 
-import com.non.employee.assignment.dto.DepartmentDto;
 import com.non.employee.assignment.dto.EmployeeDto;
 import com.non.employee.assignment.exceptions.NotFoundException;
 import com.non.employee.assignment.services.EmployeeService;
@@ -22,6 +21,7 @@ public class EmployeeController {
     private final EmployeeService employeeService ;
     public static final String EMPLOYEE_PATH = "/api/v1/employee";
     public static final String EMPLOYEE_PATH_ID = "/api/v1/employee/{employeeCode}";
+    public static final String EMPLOYEE_PATH_DELETE_ID = "/api/v1/employee/delete/{employeeId}";
     public static final String EMPLOYEE_PATH_IMAGE_ID = "/api/v1/employee/image/upload/{employeeCode}";
     public static final String EMPLOYEE_PATH_IMAGE_NAME = "/api/v1/employee/image/download/{filename}";
 
@@ -63,6 +63,15 @@ public class EmployeeController {
         }
 
         return new ResponseEntity("Update Success",HttpStatus.OK);
+    }
+
+    @DeleteMapping(EMPLOYEE_PATH_DELETE_ID)
+    public ResponseEntity deleteBeerById(@PathVariable("employeeId") Long employeeId) {
+        if (!employeeService.deleteEmployeeById(employeeId)) {
+            throw new NotFoundException();
+        }
+
+        return new ResponseEntity("Delete success",HttpStatus.OK);
     }
 
 }

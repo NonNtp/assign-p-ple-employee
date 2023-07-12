@@ -14,4 +14,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     boolean existsByFirstNameAndLastName(String firstName, String lastName);
 
     List<Employee> findAllByEmployeeNameIsLikeIgnoreCase(String employeeName) ;
+
 }
